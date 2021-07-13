@@ -1,10 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 
-INDEED_URL = "https://www.indeed.com/jobs?q=python&limit=50"
+LIMIT = 50
 
-def extgract_indeed_pages():
-  result = requests.get(INDEED_URL)
+URL = f"https://www.indeed.com/jobs?q=python&limit={LIMIT}"
+
+def extract_indeed_pages():
+  result = requests.get(URL)
   # print(indeed_result.text)
 
   soup = BeautifulSoup(result.text, "html.parser")
@@ -23,3 +25,23 @@ def extgract_indeed_pages():
   # print(range(max_page))
 
   return max_page
+
+
+def extract_indeed_jobs(last_page):
+  jobs = []
+  # for page in range(last_page):
+  result = requests.get(f"{URL}&start={0 * LIMIT}")
+  soup = BeautifulSoup(result.text, "html.parser")
+  results = soup("a", {"class": "fs-unmask"})
+
+  for result in results:
+    job_title = result.find("h2", {"class" : "jobTitle"})
+    title = job_title.find("span").string
+    if title == "new":
+      title = job_title.find_all("span")[1].string
+    
+    print(title)
+
+  return jobs
+
+
