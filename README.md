@@ -1,6 +1,6 @@
 # Python Job Scrapper
 
-- Python 3.9
+- Python 3.9.6, VS Code with Black formatter
 
 ## import
 
