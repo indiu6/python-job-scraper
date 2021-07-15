@@ -4,7 +4,7 @@
 
 ## import
 
-- requests, BeautifulSoup
+- requests, BeautifulSoup, csv
 
 ## Data from..
 
