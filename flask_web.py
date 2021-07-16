@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask("FlaskScraper")
 
@@ -13,9 +13,10 @@ def say_name(username):
     return f"Your name is {username}"
 
 
-@app.route("/contact")
-def contact():
-    return "Contact me at hewas6@gmail.com"
+@app.route("/report")
+def report():
+    word = request.args.get("word")
+    return render_template("report.html", searchingBy=word)
 
 
 app.run(debug=True)
