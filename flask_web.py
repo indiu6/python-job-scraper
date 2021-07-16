@@ -3,6 +3,8 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask("FlaskScraper")
 
+db = {}
+
 
 @app.route("/")  # '@' is Decorator
 def home():
@@ -19,12 +21,17 @@ def report():
     word = request.args.get("word")
     if word:
         word = word.lower()
-        jobs = get_jobs(word)
-        print(jobs)
+        from_db = db.get(word)
+
+        if from_db:
+            jobs = from_db
+        else:
+            jobs = get_jobs(word)
+            db[word] = jobs
     else:
         return redirect("/")
 
-    return render_template("report.html", searchingBy=word)
+    return render_template("report.html", searchingBy=word, resultsNumber=len(jobs))
 
 
 app.run(debug=True)
