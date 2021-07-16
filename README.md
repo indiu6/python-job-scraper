@@ -1,5 +1,5 @@
 # Python Job Scraper
-- Python 3.9.6, VS Code with Black formatter
+- Python 3.9.6, VS Code with Black formatter + Flask
 ## Scrap Job data -> save as csv file
 ![csv file](https://i.ibb.co/W24cjqd/job-csv.png)
 
