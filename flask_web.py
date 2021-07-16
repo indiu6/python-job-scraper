@@ -1,5 +1,6 @@
+from exporter import save_to_file
 from scraper import get_jobs
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file
 
 app = Flask("FlaskScraper")
 
@@ -44,9 +45,11 @@ def export():
             raise Exception()
         word.lower()
         jobs = db.get(word)
+
         if not jobs:
             raise Exception()
-        return f"Generate CSV for {word}"
+        save_to_file(jobs)
+        return send_file("jobs-exported.csv")
     except:
         return redirect("/")
 
